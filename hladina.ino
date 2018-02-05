@@ -9,8 +9,8 @@
 
 //#define DEBUG
 #define BRATE 9600 //rychlost seriove linky pro ladici informace
-#define TRIG_PIN  9
-#define ECHO_PIN  8
+#define TRIG_PIN  9 //triger pin
+#define ECHO_PIN  8 //echo pin
 #define MAX_DIS 300 //maximalni vzdalenost od snimace
 #define LED_PIN 10 //pin led pasku
 #define LUX_PIN A2  //fotoodpor
@@ -76,7 +76,7 @@ void trend(int akt, int minula) {
       pixels.setPixelColor(STATPIXEL, pixels.Color(0,MAX_JAS_STAT,0));
       hladina_m = hladina;
       count_ld = 0;
-    }    
+    }
   }
   if(akt < minula) {
     if(minula-akt > OFFSET_MERENI) {
@@ -84,7 +84,7 @@ void trend(int akt, int minula) {
       pixels.setPixelColor(STATPIXEL, pixels.Color(MAX_JAS_STAT,MAX_JAS_STAT-GREENSEN,0));
       hladina_m = hladina;
       count_ld++;
-    }    
+    }
   }
   if(akt == minula) {
     //nic se nedeje
@@ -129,7 +129,7 @@ void loop()
     millis_last = millis();
   }
   if(millis() - millis_last >= interval) { //urceni trendu hladiny
-    trend(hladina, hladina_m);   
+    trend(hladina, hladina_m);
     millis_last = millis();
   }
 
@@ -150,13 +150,13 @@ void loop()
   for(int i=STATPIXEL+1;i<pix;i++) {
     pixels.setPixelColor(i, pixels.Color(0,0,0));
   }
-  
+
   if(dot) { //pri bodovem rezimu vse zhasni, rozni jednu led
     vse_vypni();
     pixels.setPixelColor(pix, pixels.Color(red,green,blue));
     pixels.show();
   }
-  else { //rozne vse hladina -> dno 
+  else { //rozne vse hladina -> dno
     for(int i=pix;i<NUMPIXELS;i++){
       pixels.setPixelColor(i, pixels.Color(red,green,blue));
     }
@@ -174,7 +174,7 @@ void loop()
   else {
     dot = false;
   }
-    
+
   if(count_ld > MAXCOUNT_LD) {
     pixels.setPixelColor(STATPIXEL, pixels.Color(MAX_JAS_STAT, 0, 0));
     pixels.show();
